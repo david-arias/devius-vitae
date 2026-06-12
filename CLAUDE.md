@@ -13,10 +13,16 @@ Head UX/UI Designer & Frontend Developer con sede en Bogotá, Colombia.
 - **Fuente:** Inter (Google Fonts)
 - **Iconos:** Material Symbols Outlined
 
+## Documentación de Sesión
+Antes de empezar cualquier tarea no trivial, lee **`HANDOFF.md`** en la raíz del proyecto.
+Contiene el estado actual del proyecto, qué está roto, qué se intentó y falló, y los próximos pasos exactos.
+Al terminar una sesión con cambios relevantes, usa el agente `handoff-documenter` para actualizarlo.
+
 ## Estructura del Proyecto
 ```
 devius-vitae/
 ├── CLAUDE.md
+├── HANDOFF.md            ← Estado actual del proyecto (leer al inicio de cada sesión)
 ├── .claude/
 │   ├── agents/           ← Agentes especializados por dominio
 │   └── skills/           ← Skills reutilizables para tareas frecuentes
@@ -66,6 +72,7 @@ SUPABASE_SERVICE_ROLE_KEY=
 | `backend-developer` | Supabase, migraciones, API routes, server actions |
 | `content-editor` | Actualiza contenido CV y portafolio |
 | `devops` | Deploys Vercel, GitHub, CI/CD |
+| `handoff-documenter` | Crea y actualiza `HANDOFF.md` al final de cada sesión |
 
 ## Skills Disponibles
 | Skill | Cuándo usarla |
@@ -76,3 +83,4 @@ SUPABASE_SERVICE_ROLE_KEY=
 | `db-migration` | Crear/aplicar migración de Supabase |
 | `update-cv-data` | Actualizar info personal, experiencia o skills |
 | `deploy-preview` | Hacer deploy a Vercel y commit a GitHub |
+| `handoff-documenter` | Documentar avance de sesión en `HANDOFF.md` |
