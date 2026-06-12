@@ -5,6 +5,8 @@ import type { Metadata } from 'next'
 import { projectsData } from '@/lib/data'
 import { getProjectBySlug, getProjects } from '@/lib/actions/projects'
 import Navbar from '@/components/layout/Navbar'
+import ParallaxHero from '@/components/ui/ParallaxHero'
+import ScrollReveal from '@/components/ui/ScrollReveal'
 
 interface PageProps { params: { slug: string } }
 
@@ -64,59 +66,28 @@ export default async function ProjectPage({ params }: PageProps) {
       <main className="min-h-screen">
 
         {/* ════════════════════════════════════════════════
-            HERO — Imagen a pantalla completa con overlay
+            HERO — Parallax con breadcrumb
         ════════════════════════════════════════════════ */}
-        <section className="relative w-full h-[75vh] min-h-[500px] overflow-hidden">
-          {project.image_url ? (
-            <Image src={project.image_url} alt={project.title} fill className="object-cover" priority />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-surface-container to-background" />
-          )}
-          {/* Overlay degradado */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/20" />
+        {/* Breadcrumb sobre el hero */}
+        <div className="absolute top-24 left-0 right-0 z-10 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+          <Link href="/#portafolio" className="inline-flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-colors">
+            <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+            Portafolio
+          </Link>
+        </div>
 
-          {/* Breadcrumb */}
-          <div className="absolute top-24 left-0 right-0 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
-            <Link href="/#portafolio" className="inline-flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant/80 hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-              Portafolio
-            </Link>
-          </div>
-
-          {/* Contenido sobre la imagen */}
-          <div className="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop pb-14">
-            <div className="flex flex-wrap gap-2 mb-5">
-              {(project.tags ?? []).map((tag: string) => (
-                <span key={tag} className="px-3 py-1 rounded-full bg-primary/20 text-primary font-label-sm text-label-sm border border-primary/30 backdrop-blur-sm">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <h1 className="font-display-lg text-[40px] md:text-display-lg text-on-surface mb-6 max-w-3xl leading-tight">
-              {project.title}
-            </h1>
-            <div className="flex flex-wrap gap-4">
-              {project.live_url && (
-                <a href={project.live_url} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-container text-on-primary-container font-label-sm text-label-sm rounded-full hover:bg-primary transition-colors shadow-glow-primary">
-                  <span className="material-symbols-outlined text-[18px]">open_in_new</span>
-                  Ver en vivo
-                </a>
-              )}
-              {project.github_url && (
-                <a href={project.github_url} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary font-label-sm text-label-sm rounded-full hover:bg-primary/10 transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">code</span>
-                  Ver código
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
+        <ParallaxHero
+          imageUrl={project.image_url ?? null}
+          title={project.title}
+          tags={project.tags ?? []}
+          liveUrl={project.live_url}
+          githubUrl={project.github_url}
+        />
 
         {/* ════════════════════════════════════════════
             STATS — Año, Rol, Duración
         ════════════════════════════════════════════ */}
+        <ScrollReveal>
         <section className="border-b border-white/5 bg-surface-container-low">
           <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -147,10 +118,12 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* ════════════════════════════════════════
             DESCRIPCIÓN + RETO/SOLUCIÓN
         ════════════════════════════════════════ */}
+        <ScrollReveal>
         <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             {/* Descripción */}
@@ -188,11 +161,13 @@ export default async function ProjectPage({ params }: PageProps) {
             )}
           </div>
         </section>
+        </ScrollReveal>
 
         {/* ════════════════════════════════════════
             GALLERY — Grid de imágenes
         ════════════════════════════════════════ */}
         {project.gallery_images && project.gallery_images.length > 0 && (
+          <ScrollReveal>
           <section className="bg-surface-container-lowest/50 py-20">
             <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
               <h2 className="font-headline-lg text-headline-lg text-on-surface mb-10 flex items-center gap-3">
@@ -218,12 +193,14 @@ export default async function ProjectPage({ params }: PageProps) {
               )}
             </div>
           </section>
+          </ScrollReveal>
         )}
 
         {/* ════════════════════════════════════════
             RESULTADOS
         ════════════════════════════════════════ */}
         {project.results && (
+          <ScrollReveal>
           <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-20">
             <h2 className="font-headline-lg text-headline-lg text-on-surface mb-10 flex items-center gap-3">
               <span className="w-8 h-1 bg-primary rounded-full inline-block" />
@@ -240,12 +217,14 @@ export default async function ProjectPage({ params }: PageProps) {
               </div>
             </div>
           </section>
+          </ScrollReveal>
         )}
 
         {/* ════════════════════════════════════════
             PROYECTOS RELACIONADOS
         ════════════════════════════════════════ */}
         {related.length > 0 && (
+          <ScrollReveal>
           <section className="bg-surface-container-lowest/50 py-20">
             <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
               <h2 className="font-headline-lg text-headline-lg text-on-surface mb-10 flex items-center gap-3">
@@ -274,6 +253,7 @@ export default async function ProjectPage({ params }: PageProps) {
               </div>
             </div>
           </section>
+          </ScrollReveal>
         )}
 
         {/* CTA volver */}
