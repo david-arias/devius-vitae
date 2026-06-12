@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // react-pdf uses Node-only APIs — exclude from webpack bundling
+  experimental: {
+    serverComponentsExternalPackages: ['@react-pdf/renderer'],
+  },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',

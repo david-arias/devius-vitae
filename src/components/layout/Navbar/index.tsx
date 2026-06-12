@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import DownloadCVButton from '@/components/ui/DownloadCVButton'
 
 const NAV_LINKS = [
   { href: '#inicio',      label: 'Inicio' },
@@ -84,12 +85,15 @@ export default function Navbar() {
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => handleNavClick('#contacto')}
-            className="hidden md:flex px-6 py-2 bg-primary-container text-on-primary-container font-label-sm text-label-sm rounded-full hover:bg-primary transition-colors duration-200"
-          >
-            Contáctame
-          </button>
+          <div className="hidden md:flex items-center gap-3">
+            <DownloadCVButton variant="navbar" />
+            <button
+              onClick={() => handleNavClick('#contacto')}
+              className="px-6 py-2 bg-primary-container text-on-primary-container font-label-sm text-label-sm rounded-full hover:bg-primary transition-colors duration-200"
+            >
+              Contáctame
+            </button>
+          </div>
           <button
             onClick={() => setMobileOpen((v) => !v)}
             className="md:hidden text-on-surface hover:text-primary transition-colors"
